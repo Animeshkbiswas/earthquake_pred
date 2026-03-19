@@ -1,5 +1,5 @@
 export type SoilType = 'rock' | 'sand' | 'clay' | 'alluvium'
-export type BuildingMaterial = 'rc' | 'brick' | 'steel' | 'wood'
+export type BuildingMaterial = 'rc' | 'brick' | 'steel'
 export type FoundationType = 'pile' | 'shallow' | 'raft'
 
 export const SOIL_OPTIONS: Array<{ value: SoilType; label: string }> = [
@@ -13,7 +13,6 @@ export const MATERIAL_OPTIONS: Array<{ value: BuildingMaterial; label: string }>
   { value: 'rc', label: 'RC (Reinforced Concrete)' },
   { value: 'brick', label: 'Brick' },
   { value: 'steel', label: 'Steel' },
-  { value: 'wood', label: 'Wood' },
 ]
 
 export const FOUNDATION_OPTIONS: Array<{ value: FoundationType; label: string }> = [
