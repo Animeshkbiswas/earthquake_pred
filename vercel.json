@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/predict",
+      "destination": "/api/predict"
+    }
+  ]
+}
+
