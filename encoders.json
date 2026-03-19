@@ -1,0 +1,18 @@
+{
+  "soil_type": {
+    "alluvium": 0,
+    "clay": 1,
+    "rock": 2,
+    "sand": 3
+  },
+  "building_material": {
+    "brick": 0,
+    "rc": 1,
+    "steel": 2
+  },
+  "foundation_type": {
+    "pile": 0,
+    "raft": 1,
+    "shallow": 2
+  }
+}

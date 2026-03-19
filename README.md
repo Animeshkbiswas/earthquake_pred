@@ -6,17 +6,19 @@ This project includes:
 - A **FastAPI** backend (`app.py`) that exposes `POST /predict` locally
 - A **Vercel serverless** backend (`api/predict.py`) that exposes `POST /predict` on Vercel
 
-## 1) Start the FastAPI backend
+## 1) Start the FastAPI backend (local)
 
 From the repo root (`adarsh/`):
 
 ```bash
-python -m uvicorn app:app --host 127.0.0.1 --port 8000 --reload
+python -m uvicorn api.predict:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-The frontend expects the backend at:
+The frontend expects the backend at `http://127.0.0.1:8000/predict`.
 
-- `http://127.0.0.1:8000/predict`
+Note: Option 2 requires the ONNX artifacts to exist in the repo root:
+- `earthquake_model.onnx`
+- `encoders.json`
 
 ## 2) Start the React frontend
 
@@ -37,11 +39,20 @@ Then open:
 ## Deploy to Vercel (Frontend + Backend together)
 
 ### 1. Ensure required files are present in the repo you upload
-Your Vercel function loads these from the repo root:
-- `earthquake_model.pkl`
-- `encoders.pkl`
+For Option 2, the Vercel function loads these from the repo root:
+- `earthquake_model.onnx`
+- `encoders.json`
 
 Make sure they are included in the deployment source (for example, committed to your Git repo).
+
+#### Generate ONNX + encoder mappings (run locally once)
+1. Install conversion dependencies:
+   - `pip install skl2onnx onnx`
+2. Run:
+   - `python export_onnx.py`
+3. Commit the generated files:
+   - `earthquake_model.onnx`
+   - `encoders.json`
 
 ### 2. You should now have these Vercel files
 - `api/predict.py` (FastAPI serverless function)
