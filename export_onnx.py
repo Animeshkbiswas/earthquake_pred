@@ -27,7 +27,7 @@ def main() -> None:
 
   # Training feature order:
   # latitude, longitude, vs30, soil_type, floors, building_material, building_age, foundation_type
-  num_features = 8
+  num_features = 9
 
   initial_type = [("input", FloatTensorType([None, num_features]))]
   onnx_model = convert_sklearn(model, initial_types=initial_type)
