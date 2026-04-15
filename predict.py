@@ -3,10 +3,11 @@
 # ======================================
 
 import pandas as pd
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
 # =========================
@@ -31,7 +32,7 @@ for col in categorical_cols:
 # FEATURES & TARGET
 # =========================
 features = [
-    "latitude", "longitude", "vs30",
+    "latitude", "longitude", "vs30", "richter_scale",
     "soil_type", "floors",
     "building_material", "building_age",
     "foundation_type"
@@ -45,7 +46,7 @@ y = data["damage_level"]
 # TRAIN TEST SPLIT
 # =========================
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
 
 
@@ -53,9 +54,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 # RANDOM FOREST MODEL
 # =========================
 model = RandomForestClassifier(
-    n_estimators=200,
-    max_depth=8,
-    random_state=42
+    n_estimators=300,
+    max_depth=10,
+    random_state=42,
+    class_weight="balanced"
 )
 
 model.fit(X_train, y_train)
@@ -66,7 +68,9 @@ model.fit(X_train, y_train)
 # =========================
 y_pred = model.predict(X_test)
 
-print("Model Accuracy:", accuracy_score(y_test, y_pred))
+print("\nModel Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 
 
 # =========================
@@ -78,42 +82,68 @@ def predict_damage():
     lat = float(input("Latitude: "))
     lon = float(input("Longitude: "))
     vs30 = float(input("Vs30: "))
+    richter = float(input("Richter Scale (4.0 - 8.5): "))
 
-    soil = input("Soil (rock/sand/clay/alluvium): ")
+    soil = input("Soil (rock/sand/clay/alluvium): ").lower()
     floors = int(input("Floors: "))
-    material = input("Material (rc/brick/steel/wood): ")
+    material = input("Material (rc/brick/steel): ").lower()
     age = int(input("Building Age: "))
-    foundation = input("Foundation (pile/shallow/raft): ")
+    foundation = input("Foundation (pile/shallow/raft): ").lower()
 
-    # Encode
-    soil = encoders["soil_type"].transform([soil])[0]
-    material = encoders["building_material"].transform([material])[0]
-    foundation = encoders["foundation_type"].transform([foundation])[0]
+    try:
+        # Encode categorical inputs
+        soil_encoded = encoders["soil_type"].transform([soil])[0]
+        material_encoded = encoders["building_material"].transform([material])[0]
+        foundation_encoded = encoders["foundation_type"].transform([foundation])[0]
+    except ValueError as e:
+        print("\nError: Invalid categorical input.")
+        print("Allowed values:")
+        print("Soil:", list(encoders["soil_type"].classes_))
+        print("Material:", list(encoders["building_material"].classes_))
+        print("Foundation:", list(encoders["foundation_type"].classes_))
+        return
 
     input_df = pd.DataFrame([[
-        lat, lon, vs30, soil,
-        floors, material, age, foundation
+        lat, lon, vs30, richter,
+        soil_encoded, floors,
+        material_encoded, age,
+        foundation_encoded
     ]], columns=features)
 
     pred = model.predict(input_df)[0]
 
     labels = {
         0: "No Damage",
-        1: "Minor",
-        2: "Moderate",
-        3: "Severe",
+        1: "Minor Damage",
+        2: "Moderate Damage",
+        3: "Severe Damage",
         4: "Collapse Risk"
     }
 
-    print("\nPrediction:", labels[pred])
+    print("\nPredicted Damage Level:", labels[pred])
 
 
 # =========================
-# RUN
+# FEATURE IMPORTANCE
 # =========================
-#predict_damage()
+importance = pd.DataFrame({
+    "Feature": features,
+    "Importance": model.feature_importances_
+}).sort_values(by="Importance", ascending=False)
 
-import joblib
+print("\nFeature Importance:\n", importance)
 
+
+# =========================
+# SAVE MODEL & ENCODERS
+# =========================
 joblib.dump(model, "earthquake_model.pkl")
 joblib.dump(encoders, "encoders.pkl")
+
+print("\nModel and encoders saved successfully.")
+
+
+# =========================
+# RUN PREDICTION (OPTIONAL)
+# =========================
+# predict_damage()

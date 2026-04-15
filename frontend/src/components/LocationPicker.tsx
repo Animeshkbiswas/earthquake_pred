@@ -32,6 +32,8 @@ function ClickToPick({ onPick }: { onPick: (lat: number, lng: number) => void })
   return null
 }
 
+const DEFAULT_CENTER: [number, number] = [22.251208604465074, 84.90576949858426]
+
 export default function LocationPicker({
   latitude,
   longitude,
@@ -46,9 +48,9 @@ export default function LocationPicker({
   }, [])
 
   const center: LatLngExpression = useMemo(() => {
-    // Default to India if coordinates are not valid yet.
-    const lat = typeof latitude === 'number' ? latitude : 20.5937
-    const lng = typeof longitude === 'number' ? longitude : 78.9629
+    // Default to the project’s fixed location if coordinates are not valid yet.
+    const lat = typeof latitude === 'number' ? latitude : DEFAULT_CENTER[0]
+    const lng = typeof longitude === 'number' ? longitude : DEFAULT_CENTER[1]
     return [lat, lng]
   }, [latitude, longitude])
 
@@ -70,7 +72,7 @@ export default function LocationPicker({
         </div>
       </div>
       <div className="h-64 w-full overflow-hidden rounded-xl">
-        <MapContainer center={center} zoom={5} scrollWheelZoom style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={center} zoom={13} scrollWheelZoom style={{ height: '100%', width: '100%' }}>
           <TileLayer
             attribution='&copy; OpenStreetMap contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

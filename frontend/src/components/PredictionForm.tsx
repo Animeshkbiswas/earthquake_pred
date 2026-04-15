@@ -92,6 +92,25 @@ export default function PredictionForm({ form, errors, loading, onChange, onSubm
 
         <div>
           <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+            Richter Scale (Magnitude)
+          </label>
+          <input
+            type="number"
+            step="any"
+            value={form.richter}
+            onChange={(e) => onChange('richter', e.target.value)}
+            className={`${inputClass} ${
+              errors.richter
+                ? 'border-rose-400 bg-white/95 focus:border-rose-500 dark:border-rose-500 dark:bg-slate-950/50'
+                : 'border-slate-200 bg-white/80 focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-950/40'
+            }`}
+            placeholder="e.g., 6.5"
+          />
+          <FieldError message={errors.richter} />
+        </div>
+
+        <div>
+          <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
             Soil Type
           </label>
           <select
@@ -179,11 +198,12 @@ export default function PredictionForm({ form, errors, loading, onChange, onSubm
           <select
             value={form.foundation_type}
             onChange={(e) => onChange('foundation_type', e.target.value as any)}
+            disabled
             className={`${inputClass} ${
               errors.foundation_type
                 ? 'border-rose-400 bg-white/95 focus:border-rose-500 dark:border-rose-500 dark:bg-slate-950/50'
                 : 'border-slate-200 bg-white/80 focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-950/40'
-            }`}
+            } disabled:cursor-not-allowed disabled:opacity-70`}
           >
             {FOUNDATION_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>

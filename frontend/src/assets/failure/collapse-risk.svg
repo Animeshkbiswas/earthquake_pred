@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1f2"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset="1" stop-color="#be123c"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="700" rx="40" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="580" rx="32" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
+
+  <g transform="translate(160,120)">
+    <rect x="0" y="0" width="880" height="460" rx="28" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="6"/>
+    <!-- Frame (partial collapse) -->
+    <g stroke="#334155" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M120 410 V110" />
+      <path d="M760 410 V150" />
+      <path d="M120 110 H710" />
+      <path d="M120 250 H720" />
+      <path d="M120 410 H760" />
+      <path d="M320 410 V140" />
+      <path d="M560 410 V180" />
+    </g>
+    <!-- Collapse wedge -->
+    <path d="M680 250 L820 410 L680 410 Z" fill="#0f172a" opacity="0.08"/>
+    <!-- Critical cracks -->
+    <g stroke="#ef4444" stroke-width="10" fill="none" opacity="0.95" stroke-linecap="round">
+      <path d="M300 260 l40 -40 l32 22 l32 -30 l24 16 l24 -22" />
+      <path d="M520 300 l34 -36 l28 20 l32 -30 l24 16" />
+      <path d="M640 250 l40 40 l34 -16 l34 28" />
+    </g>
+    <!-- Debris -->
+    <g fill="#334155" opacity="0.16">
+      <circle cx="770" cy="420" r="18"/>
+      <circle cx="800" cy="440" r="12"/>
+      <circle cx="740" cy="445" r="10"/>
+      <circle cx="715" cy="430" r="8"/>
+    </g>
+    <!-- Footings -->
+    <g fill="#cbd5e1" stroke="#94a3b8" stroke-width="6">
+      <rect x="90" y="410" width="90" height="28" rx="10"/>
+      <rect x="290" y="410" width="90" height="28" rx="10"/>
+      <rect x="530" y="410" width="90" height="28" rx="10"/>
+      <rect x="730" y="410" width="90" height="28" rx="10"/>
+    </g>
+    <!-- Accent badge -->
+    <g transform="translate(24,24)">
+      <rect x="0" y="0" width="260" height="54" rx="18" fill="url(#accent)"/>
+      <text x="130" y="36" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="22" text-anchor="middle" fill="#450a0a" font-weight="700">
+        Collapse Risk
+      </text>
+    </g>
+    <text x="28" y="440" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="18" fill="#475569">
+      Placeholder illustration (replace with AI image later)
+    </text>
+  </g>
+</svg>
+

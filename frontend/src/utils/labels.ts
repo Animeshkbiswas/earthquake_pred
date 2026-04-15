@@ -1,6 +1,6 @@
 export type SoilType = 'rock' | 'sand' | 'clay' | 'alluvium'
 export type BuildingMaterial = 'rc' | 'brick' | 'steel'
-export type FoundationType = 'pile' | 'shallow' | 'raft'
+export type FoundationType = 'pile'
 
 export const SOIL_OPTIONS: Array<{ value: SoilType; label: string }> = [
   { value: 'rock', label: 'Rock' },
@@ -17,8 +17,6 @@ export const MATERIAL_OPTIONS: Array<{ value: BuildingMaterial; label: string }>
 
 export const FOUNDATION_OPTIONS: Array<{ value: FoundationType; label: string }> = [
   { value: 'pile', label: 'Pile' },
-  { value: 'shallow', label: 'Shallow' },
-  { value: 'raft', label: 'Raft' },
 ]
 
 export type DamageTone = 'green' | 'yellow' | 'red'

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1f2"/>
+      <stop offset="1" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="700" rx="40" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="580" rx="32" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
+
+  <g transform="translate(160,120)">
+    <rect x="0" y="0" width="880" height="460" rx="28" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="6"/>
+    <!-- Frame (deformed) -->
+    <g stroke="#334155" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M120 410 V92" />
+      <path d="M760 410 V96" />
+      <path d="M120 92 H760" />
+      <path d="M120 250 H760" />
+      <path d="M120 410 H760" />
+      <path d="M320 410 V100" />
+      <path d="M560 410 V110" />
+    </g>
+    <!-- Major cracks -->
+    <g stroke="#ef4444" stroke-width="9" fill="none" opacity="0.9" stroke-linecap="round">
+      <path d="M310 255 l34 -34 l26 18 l28 -26 l20 14 l22 -20" />
+      <path d="M540 270 l28 -30 l20 14 l30 -28 l24 16" />
+      <path d="M140 350 l28 -30 l22 14 l26 -24" />
+    </g>
+    <!-- Spalling debris -->
+    <g fill="#ef4444" opacity="0.22">
+      <circle cx="340" cy="278" r="20"/>
+      <circle cx="585" cy="292" r="18"/>
+      <circle cx="168" cy="372" r="16"/>
+      <circle cx="520" cy="350" r="12"/>
+    </g>
+    <!-- Footings -->
+    <g fill="#cbd5e1" stroke="#94a3b8" stroke-width="6">
+      <rect x="90" y="410" width="90" height="28" rx="10"/>
+      <rect x="290" y="410" width="90" height="28" rx="10"/>
+      <rect x="530" y="410" width="90" height="28" rx="10"/>
+      <rect x="730" y="410" width="90" height="28" rx="10"/>
+    </g>
+    <!-- Accent badge -->
+    <g transform="translate(24,24)">
+      <rect x="0" y="0" width="180" height="54" rx="18" fill="url(#accent)"/>
+      <text x="90" y="36" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="22" text-anchor="middle" fill="#4c0519" font-weight="700">
+        Severe
+      </text>
+    </g>
+    <text x="28" y="440" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="18" fill="#475569">
+      Placeholder illustration (replace with AI image later)
+    </text>
+  </g>
+</svg>
+

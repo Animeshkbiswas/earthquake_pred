@@ -17,6 +17,7 @@ class PredictRequest(BaseModel):
   latitude: float
   longitude: float
   vs30: float
+  richter: float
   soil_type: Literal["rock", "sand", "clay", "alluvium"]
   floors: int
   building_material: Literal["rc", "brick", "steel", "wood"]
@@ -99,23 +100,42 @@ def predict(req: PredictRequest):
   except KeyError as e:
     raise HTTPException(status_code=400, detail=f"Unknown categorical value: {e}")
 
-  # Feature order must match training:
-  # latitude, longitude, vs30, soil_type, floors, building_material, building_age, foundation_type
-  input_array = np.array(
-    [
-      [
-        float(req.latitude),
-        float(req.longitude),
-        float(req.vs30),
-        float(soil),
-        float(req.floors),
-        float(material),
-        float(req.building_age),
-        float(foundation),
-      ]
-    ],
-    dtype=np.float32,
-  )
+  # Feature order must match training. Support both 8-feature and 9-feature ONNX exports.
+  # 8: latitude, longitude, vs30, soil_type, floors, building_material, building_age, foundation_type
+  # 9: latitude, longitude, vs30, richter, soil_type, floors, building_material, building_age, foundation_type
+  shape = session.get_inputs()[0].shape
+  expected_features = None
+  try:
+    if isinstance(shape, (list, tuple)) and len(shape) >= 2 and isinstance(shape[1], int):
+      expected_features = int(shape[1])
+  except Exception:
+    expected_features = None
+
+  if expected_features == 8:
+    row = [
+      float(req.latitude),
+      float(req.longitude),
+      float(req.vs30),
+      float(soil),
+      float(req.floors),
+      float(material),
+      float(req.building_age),
+      float(foundation),
+    ]
+  else:
+    row = [
+      float(req.latitude),
+      float(req.longitude),
+      float(req.vs30),
+      float(req.richter),
+      float(soil),
+      float(req.floors),
+      float(material),
+      float(req.building_age),
+      float(foundation),
+    ]
+
+  input_array = np.array([row], dtype=np.float32)
 
   outputs = session.run(None, {input_name: input_array})
   pred_int = _extract_prediction(outputs)

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffbeb"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="700" rx="40" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="580" rx="32" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
+
+  <g transform="translate(160,120)">
+    <rect x="0" y="0" width="880" height="460" rx="28" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="6"/>
+    <!-- Frame -->
+    <g stroke="#334155" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M120 410 V90" />
+      <path d="M760 410 V90" />
+      <path d="M120 90 H760" />
+      <path d="M120 250 H760" />
+      <path d="M120 410 H760" />
+      <path d="M320 410 V90" />
+      <path d="M560 410 V90" />
+    </g>
+    <!-- Hairline cracks -->
+    <g stroke="#ef4444" stroke-width="3" fill="none" opacity="0.75" stroke-linecap="round">
+      <path d="M340 245 l20 -18 l16 12 l22 -18" />
+      <path d="M585 265 l18 -16 l16 10 l20 -16" />
+      <path d="M140 300 l20 -18 l14 10 l18 -14" />
+    </g>
+    <!-- Footings -->
+    <g fill="#cbd5e1" stroke="#94a3b8" stroke-width="6">
+      <rect x="90" y="410" width="90" height="28" rx="10"/>
+      <rect x="290" y="410" width="90" height="28" rx="10"/>
+      <rect x="530" y="410" width="90" height="28" rx="10"/>
+      <rect x="730" y="410" width="90" height="28" rx="10"/>
+    </g>
+    <!-- Accent badge -->
+    <g transform="translate(24,24)">
+      <rect x="0" y="0" width="170" height="54" rx="18" fill="url(#accent)"/>
+      <text x="85" y="36" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="22" text-anchor="middle" fill="#451a03" font-weight="700">
+        Minor
+      </text>
+    </g>
+    <text x="28" y="440" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="18" fill="#475569">
+      Placeholder illustration (replace with AI image later)
+    </text>
+  </g>
+</svg>
+

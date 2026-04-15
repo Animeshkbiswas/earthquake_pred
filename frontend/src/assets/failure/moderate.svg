@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1200" height="700" rx="40" fill="url(#bg)"/>
+  <rect x="60" y="60" width="1080" height="580" rx="32" fill="#ffffff" stroke="#e2e8f0" stroke-width="6"/>
+
+  <g transform="translate(160,120)">
+    <rect x="0" y="0" width="880" height="460" rx="28" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="6"/>
+    <!-- Frame -->
+    <g stroke="#334155" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M120 410 V90" />
+      <path d="M760 410 V90" />
+      <path d="M120 90 H760" />
+      <path d="M120 250 H760" />
+      <path d="M120 410 H760" />
+      <path d="M320 410 V90" />
+      <path d="M560 410 V90" />
+    </g>
+    <!-- Wider cracks + spalling -->
+    <g stroke="#ef4444" stroke-width="6" fill="none" opacity="0.85" stroke-linecap="round">
+      <path d="M330 250 l26 -26 l20 14 l24 -22 l18 12" />
+      <path d="M560 250 l20 -22 l18 12 l26 -24 l18 12" />
+      <path d="M150 330 l22 -22 l18 12 l22 -20" />
+    </g>
+    <g fill="#fb7185" opacity="0.35">
+      <circle cx="342" cy="260" r="14"/>
+      <circle cx="580" cy="265" r="12"/>
+      <circle cx="168" cy="340" r="12"/>
+    </g>
+    <!-- Footings -->
+    <g fill="#cbd5e1" stroke="#94a3b8" stroke-width="6">
+      <rect x="90" y="410" width="90" height="28" rx="10"/>
+      <rect x="290" y="410" width="90" height="28" rx="10"/>
+      <rect x="530" y="410" width="90" height="28" rx="10"/>
+      <rect x="730" y="410" width="90" height="28" rx="10"/>
+    </g>
+    <!-- Accent badge -->
+    <g transform="translate(24,24)">
+      <rect x="0" y="0" width="210" height="54" rx="18" fill="url(#accent)"/>
+      <text x="105" y="36" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="22" text-anchor="middle" fill="#431407" font-weight="700">
+        Moderate
+      </text>
+    </g>
+    <text x="28" y="440" font-family="ui-sans-serif, system-ui, Segoe UI" font-size="18" fill="#475569">
+      Placeholder illustration (replace with AI image later)
+    </text>
+  </g>
+</svg>
+

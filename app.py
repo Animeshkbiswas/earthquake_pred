@@ -14,14 +14,33 @@ def predict(data: dict):
     material = encoders["building_material"].transform([data["building_material"]])[0]
     foundation = encoders["foundation_type"].transform([data["foundation_type"]])[0]
 
-    input_df = pd.DataFrame([[ 
-        data["latitude"], data["longitude"], data["vs30"],
-        soil, data["floors"], material,
-        data["building_age"], foundation
-    ]], columns=[
-        "latitude","longitude","vs30","soil_type","floors",
-        "building_material","building_age","foundation_type"
-    ])
+    # Richter scale (magnitude). Support a few common keys.
+    richter = data.get("richter")
+    if richter is None:
+        richter = data.get("richter_scale")
+    if richter is None:
+        richter = data.get("magnitude")
+
+    # Some deployments may still load an 8-feature model; adapt to avoid 500s.
+    expected = getattr(model, "n_features_in_", None)
+    if expected == 8:
+        input_df = pd.DataFrame([[
+            data["latitude"], data["longitude"], data["vs30"],
+            soil, data["floors"], material,
+            data["building_age"], foundation
+        ]], columns=[
+            "latitude","longitude","vs30","soil_type","floors",
+            "building_material","building_age","foundation_type"
+        ])
+    else:
+        input_df = pd.DataFrame([[
+            data["latitude"], data["longitude"], data["vs30"],
+            float(richter), soil, data["floors"], material,
+            data["building_age"], foundation
+        ]], columns=[
+            "latitude","longitude","vs30","richter","soil_type","floors",
+            "building_material","building_age","foundation_type"
+        ])
 
     pred = model.predict(input_df)[0]
 
