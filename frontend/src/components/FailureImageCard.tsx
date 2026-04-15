@@ -5,10 +5,10 @@ type FailureAsset = {
 }
 
 const PUBLIC_FAILURE_IMAGES = {
-  minor: '/download (1).jpg',
-  moderate: '/download (2).jpg',
+  minor: '/images (1).jpg',
+  moderate: '/slab damage.jpg',
   severe: '/shear_beam.jpg',
-  collapse: '/Failure-Modes-in-Concrete-Beams-Flexural-and-Shear-Failure.jpg',
+  collapse: '/high damage.jpg',
 } as const
 
 function normalizeLabel(label: string): string {
