@@ -4,12 +4,18 @@ import PredictionForm from './components/PredictionForm'
 import ResultCard from './components/ResultCard'
 import RiskBar from './components/RiskBar'
 import LocationPicker from './components/LocationPicker'
-import FailureImageCard from './components/FailureImageCard'
 import { getDamageMeta } from './utils/labels'
 import type { DamageMeta } from './utils/labels'
 import { predictDamage } from './api/predictApi'
+import {
+  getDamageDescription,
+  getRandomDamageImage,
+  normalizeDamageLabel,
+} from './utils/damageInsights'
 import type { PredictFormErrors, PredictFormState } from './utils/validate'
 import { formToPayload, validatePredictForm } from './utils/validate'
+
+const FIXED_VS30 = '680'
 
 function parseNullableNumber(value: string): number | null {
   const trimmed = value.trim()
@@ -22,7 +28,7 @@ export default function App() {
   const [form, setForm] = useState<PredictFormState>({
     latitude: '22.251208604465074',
     longitude: '84.90576949858426',
-    vs30: '',
+    vs30: FIXED_VS30,
     richter: '',
     soil_type: 'rock',
     floors: '',
@@ -38,6 +44,8 @@ export default function App() {
   const [result, setResult] = useState<{
     prediction: number
     meta: DamageMeta
+    imagePath: string | null
+    technicalDescription: string
   } | null>(null)
 
   const activeRequestAbortRef = useRef<AbortController | null>(null)
@@ -88,11 +96,15 @@ export default function App() {
       const res = await predictDamage(payload, { signal: abortController.signal })
 
       const baseMeta = getDamageMeta(res.prediction)
-      const label = typeof res.label === 'string' && res.label.trim() ? res.label : baseMeta.label
+      const rawLabel =
+        typeof res.label === 'string' && res.label.trim() ? res.label : baseMeta.label
+      const label = normalizeDamageLabel(rawLabel)
 
       setResult({
         prediction: res.prediction,
         meta: { ...baseMeta, label },
+        imagePath: getRandomDamageImage(label),
+        technicalDescription: getDamageDescription(label),
       })
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return
@@ -148,7 +160,13 @@ export default function App() {
                   setResult(null)
                   setApiError(null)
                   setErrors({})
-                  setForm((prev) => ({ ...prev, vs30: '', richter: '', floors: '', building_age: '' }))
+                  setForm((prev) => ({
+                    ...prev,
+                    vs30: FIXED_VS30,
+                    richter: '',
+                    floors: '',
+                    building_age: '',
+                  }))
                 }}
                 className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
               >
@@ -156,14 +174,16 @@ export default function App() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              <section className="space-y-4 lg:col-span-2">
-                <ResultCard prediction={result!.prediction} meta={result!.meta} />
+            <div className="space-y-4">
+              <section className="space-y-4">
+                <ResultCard
+                  prediction={result!.prediction}
+                  meta={result!.meta}
+                  imagePath={result!.imagePath}
+                  technicalDescription={result!.technicalDescription}
+                />
                 <RiskBar predictionIndex={result!.prediction} />
               </section>
-              <aside className="space-y-4 lg:col-span-1">
-                <FailureImageCard label={result!.meta.label} />
-              </aside>
             </div>
           </div>
         ) : (

@@ -73,20 +73,23 @@ export default function PredictionForm({ form, errors, loading, onChange, onSubm
 
         <div>
           <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-            Vs30
+            Vs30 (Fixed)
           </label>
           <input
             type="number"
             step="any"
             value={form.vs30}
-            onChange={(e) => onChange('vs30', e.target.value)}
+            disabled
             className={`${inputClass} ${
               errors.vs30
                 ? 'border-rose-400 bg-white/95 focus:border-rose-500 dark:border-rose-500 dark:bg-slate-950/50'
                 : 'border-slate-200 bg-white/80 focus:border-indigo-500 dark:border-slate-700 dark:bg-slate-950/40'
-            }`}
-            placeholder="e.g., 760"
+            } disabled:cursor-not-allowed disabled:opacity-70`}
+            placeholder="680"
           />
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Site class velocity is fixed at 680 m/s for this model.
+          </p>
           <FieldError message={errors.vs30} />
         </div>
 

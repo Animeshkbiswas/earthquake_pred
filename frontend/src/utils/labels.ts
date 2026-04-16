@@ -41,7 +41,7 @@ export const DAMAGE_META_BY_INDEX: Record<number, DamageMeta> = {
     barClassName: 'bg-emerald-500 dark:bg-emerald-400',
   },
   1: {
-    label: 'Minor',
+    label: 'Minor Damage',
     predictionIndex: 1,
     tone: 'yellow',
     badgeClassName:
@@ -50,7 +50,7 @@ export const DAMAGE_META_BY_INDEX: Record<number, DamageMeta> = {
     barClassName: 'bg-amber-500 dark:bg-amber-400',
   },
   2: {
-    label: 'Moderate',
+    label: 'Moderate Damage',
     predictionIndex: 2,
     tone: 'yellow',
     badgeClassName:
@@ -59,7 +59,7 @@ export const DAMAGE_META_BY_INDEX: Record<number, DamageMeta> = {
     barClassName: 'bg-amber-500 dark:bg-amber-400',
   },
   3: {
-    label: 'Severe',
+    label: 'Severe Damage',
     predictionIndex: 3,
     tone: 'red',
     badgeClassName:
